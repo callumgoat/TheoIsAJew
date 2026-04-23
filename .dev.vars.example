@@ -1,0 +1,15 @@
+# Copy this file to `.dev.vars` (gitignored) for `wrangler pages dev`.
+# In production, set these as ENCRYPTED secrets in the Cloudflare Pages dashboard.
+#
+# Generate the hash + salt locally with:
+#
+#   bun run scripts/hash-password.ts "<your-strong-password>"
+#
+# Then paste the output below.
+
+ADMIN_USERNAME = "admin"
+ADMIN_PASSWORD_HASH = "REPLACE_WITH_BASE64_PBKDF2_HASH"
+ADMIN_PASSWORD_SALT = "REPLACE_WITH_BASE64_SALT"
+
+# Optional: comma-separated list of IPs that bypass rate limiting (for testing).
+# ADMIN_TRUSTED_IPS = ""

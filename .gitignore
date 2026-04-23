@@ -1,0 +1,19 @@
+dist
+.wrangler
+node_modules
+.DS_Store
+.env.local
+.env.*.local
+*.log
+.idea
+.vscode/settings.json
+build
+
+# Cloudflare Pages local dev secrets — NEVER commit.
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+
+# Local-only admin notes / unencrypted credentials.
+admin-credentials*
+*.secret
