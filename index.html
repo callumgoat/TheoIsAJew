@@ -28,6 +28,18 @@
         object-fit: contain;
         margin: 0 auto;
       }
+      .side-photo {
+        position: absolute;
+        top: 0;
+        height: 100vh;
+        width: 50vw;
+        object-fit: cover;
+        z-index: 0;
+        pointer-events: none;
+      }
+      .side-photo.left { left: 0; object-position: 30% 50%; }
+      .side-photo.right { right: 0; object-position: 70% 50%; }
+      img.center-photo { position: relative; z-index: 1; }
     .pay-now-kid {
       position: absolute;
       color: #ff0000;
@@ -49,7 +61,9 @@
       </div>
       <div id="countdown" style="font-size: 6rem; color: rgb(0, 255, 64); font-weight: bold; margin-top: 16px; text-shadow: 2px 2px 12px #000; letter-spacing: 3px;"></div>
     </div>
-    <img src="image0.gif" alt="Loading..." loop="infinite" />
+    <img id="side-left" class="side-photo left" src="IMG_5802-left.jpg" alt="Left side" onerror="this.onerror=null;this.src='IMG_5802.jpg'" />
+    <img id="side-right" class="side-photo right" src="IMG_5802-right.jpg" alt="Right side" onerror="this.onerror=null;this.src='IMG_5802.jpg'" />
+    <img src="image0.gif" alt="Loading..." loop="infinite" class="center-photo" />
     <audio id="bg-music" src="/jewmusic.mp3" autoplay loop hidden></audio>
     <div style="position: absolute; bottom: 0; left: 0; width: 100vw; text-align: center; z-index: 10;">
       <div style="font-size: 4rem; color: rgb(21, 255, 0); font-weight: bold; margin-bottom: 24px; text-shadow: 2px 2px 8px #000; letter-spacing: 2px;">
@@ -68,6 +82,21 @@
         }
         document.body.style.cursor = 'pointer';
         document.body.addEventListener('click', enableMusic);
+      });
+      // Ensure side images fall back or hide if not available
+      document.addEventListener('DOMContentLoaded', function () {
+        ['side-left','side-right'].forEach(id => {
+          const el = document.getElementById(id);
+          if (!el) return;
+          el.addEventListener('error', function () {
+            if (this.dataset.tried === '1') {
+              this.style.display = 'none';
+            } else {
+              this.dataset.tried = '1';
+              this.src = 'IMG_5802.jpg';
+            }
+          });
+        });
       });
       function updateCountdown() {
         const target = new Date('2026-07-26T00:00:00Z');
